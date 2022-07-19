@@ -1,0 +1,35 @@
+---
+driver_plugin: vagrant
+driver_config:
+  product_name: chef
+  product_version: 13.8.5
+
+provisioner:
+  name: chef_zero
+  gem_source: http://rubygems.customer.net
+  max_retries: 2
+  client_rb:
+    client_fork: false
+
+platforms:
+  - name: base-centos7
+    driver_config:
+      box: customer/centos-7
+      box_url: http://os-images.customer.net/centos/centos-7-x86_64.json
+  - name: base-rhel6
+    driver_config:
+      box: customer/rhel-6
+      box_url: http://os-images.customer.net/rhel/rhel-6-x86_64.json
+  - name: base-rhel7
+    driver_config:
+      box: customer/rhel-7
+      box_url: http://os-images.customer.net/rhel/rhel-7-x86_64.json
+
+suites:
+- name: default
+  run_list:
+    - recipe[chef_client_migration::default]
+  attributes:
+    xymon:
+      solo_run: true
+
