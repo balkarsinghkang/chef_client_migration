@@ -1,0 +1,22 @@
+chef_license "accept"
+chef_server_url "https://ramsay.customer.net/organizations/customer"
+policy_group "migration"
+policy_name "policy_chef_client_updater"
+file_backup_path "/var/chef/backup"
+file_cache_path "/var/chef/cache"
+log_location "/var/log/chef/client.log"
+rubygems_url "https://rubygems.customer.net"
+validation_client_name "customer-validator"
+verify_api_cert true
+node_name "<%=node['fqdn']%>"
+
+ohai.disabled_plugins = [:C,:Cloud,:Rackspace,:Eucalyptus,:Command,:DMI,:Erlang,:Groovy,:IpScopes,:Java,:Lua,:Mono,:NetworkListeners,:Passwd,:Perl,:PHP,:Python]
+
+# Do not crash if a handler is missing / not installed yet
+begin
+
+
+rescue NameError => e
+  Chef::Log.error e
+end
+

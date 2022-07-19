@@ -1,0 +1,16 @@
+#!/bin/bash
+
+TARGET="/etc/chef_$(date +%s)"
+
+mkdir -p ${TARGET}
+chmod 0700 ${TARGET}
+
+# Delete some files
+/bin/rm -v /etc/chef/chef_guid
+
+# MV and CP some files
+/bin/mv -v /etc/chef/accepted_licenses ${TARGET}
+/bin/mv -v /etc/chef/ohai ${TARGET}
+/bin/mv -v /etc/chef/client.json ${TARGET}
+/bin/mv -v /etc/chef/client.pem ${TARGET}
+/bin/cp -a /etc/chef/client.rb ${TARGET}

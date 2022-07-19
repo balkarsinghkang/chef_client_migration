@@ -1,0 +1,26 @@
+chef_license "accept"
+chef_server_url "https://ramsay.customer.net/organizations/customer"
+log_level :info
+log_location STDOUT
+node_name "<%=node['fqdn']%>"
+policy_group "migration"
+policy_name "policy_chef_client_updater"
+verify_api_cert true
+file_cache_path "c:/chef/cache"
+file_backup_path "c:/chef/backup"
+rubygems_url "https://rubygems.customer.net"
+validation_client_name "customer-validator"
+validation_key "c:/chef/validation.pem"
+client_key "c:/chef/client.pem"
+cache_options ({:path => "c:/chef/cache/checksums", :skip_expires => true})
+Ohai::Config[:disabled_plugins] = [
+# The following plugins are disabled as they are either not needed,
+# have poor performance, or do not apply to the windows configuration
+# used in ndirect.
+
+  "c", "cloud", "ec2", "rackspace", "eucalyptus", "command", "dmi",
+  "dmi_common", "erlang", "groovy", "ip_scopes", "java", "keys",
+  "lua", "mono", "network_listeners", "passwd", "perl",
+  "php", "python", "ssh_host_key", "uptime", "virtualization",
+  "windows::virtualization", "windows::kernel_DEVices"
+]
